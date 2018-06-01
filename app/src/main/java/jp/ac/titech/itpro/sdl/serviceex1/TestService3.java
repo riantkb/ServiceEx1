@@ -4,11 +4,13 @@ import android.app.IntentService;
 import android.content.Intent;
 import android.util.Log;
 
-public class TestService2 extends IntentService {
-    private final static String TAG = "TestService2";
+public class TestService3 extends IntentService {
+    private final static String TAG = "TestService3";
     public final static String EXTRA_MYARG = "MYARG";
+    public final static String ACTION_ANSWER = "ACTION_ANSWER";
+    public final static String EXTRA_ANSWER = "EXTRA_ANSWER";
 
-    public TestService2() {
+    public TestService3() {
         super(TAG);
     }
 
@@ -16,12 +18,11 @@ public class TestService2 extends IntentService {
     protected void onHandleIntent(Intent intent) {
         Log.d(TAG, "onHandleIntent in " + Thread.currentThread());
         Log.d(TAG, "myarg = " + intent.getStringExtra(EXTRA_MYARG));
-        try {
-            Thread.sleep(5000);
-        }
-        catch (InterruptedException e) {
-            e.printStackTrace();
-        }
+        String message = "Hello, I'm Service3.";
+        Intent answerIntent = new Intent();
+        answerIntent.setAction(ACTION_ANSWER);
+        answerIntent.putExtra(EXTRA_ANSWER, message);
+        sendBroadcast(answerIntent);
     }
 
     @Override
